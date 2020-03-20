@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MarketPlaceApp.Domain.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +29,24 @@ namespace MarketPlaceApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // Enable CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy("EnableCORS", builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials().Build();
+                });
+            });
+
+
+            services.AddDbContext<ApplicationDbContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                serverOptions => serverOptions.MigrationsAssembly("MarketPlaceApp"))
+            );
+
+            // Inject DbContext to VortexServices
+            services.AddScoped<DbContext>(p => p.GetRequiredService<ApplicationDbContext>());
 
             services.AddSwaggerGen(c =>
             {
