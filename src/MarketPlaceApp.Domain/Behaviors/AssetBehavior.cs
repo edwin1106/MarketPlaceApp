@@ -29,9 +29,10 @@ namespace MarketPlaceApp.Domain.Behaviors
         {
             return await _assetRepository.FindAllAsync();
         }
-        public async Task<List<Asset>> GetQuantityAsync()
+        public async Task<List<Asset>> GetLastAssetsAsync()
         {
-            return await _assetRepository.FindQuantityAsync();
+            var quantityAssets = await _assetRepository.Count();
+            return await _assetRepository.FindAsync(skip: quantityAssets - 6, take: 6);
         }
 
         public async Task<Asset> GetByIdAsync(int id)

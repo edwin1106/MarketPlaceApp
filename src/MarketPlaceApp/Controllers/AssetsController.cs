@@ -38,11 +38,11 @@ namespace MarketPlaceApp.Controllers
         {
             return await _assetBehavior.GetAllAsync();
         }
-        [HttpGet("Quantity")]
+        [HttpGet("Last")]
         [ProducesResponseType(200)]
-        public async Task<List<Asset>> GetQuantityAsync()
+        public async Task<List<Asset>> GetLastAssetsAsync()
         {
-            return await _assetBehavior.GetQuantityAsync();
+            return await _assetBehavior.GetLastAssetsAsync();
         }
 
         [HttpGet("{id}")]

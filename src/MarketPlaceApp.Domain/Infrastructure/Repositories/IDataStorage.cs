@@ -18,11 +18,6 @@ namespace FamiliesApp.Domain.Infrastructure.Repositories
         Task<List<T>> FindAllAsync(
           params string[] includeProperties);
 
-        Task<List<T>> FindQuantityAsync();
-        Task<List<T>> FindQuantityAsync(
-            params string[] includeProperties);
-
-
         Task<List<T>> FindAsync(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
