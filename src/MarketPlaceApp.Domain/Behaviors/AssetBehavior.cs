@@ -18,16 +18,20 @@ namespace MarketPlaceApp.Domain.Behaviors
 
         public async Task CreateAsync(Asset asset)
         {
-            if (asset is null)
-            {
-                throw new ArgumentNullException(nameof(Asset));
-            }
+            if (asset == null)
+                throw new ArgumentNullException(nameof(asset));
+
+
             await _assetRepository.InsertAsync(asset);
         }
 
         public async Task<List<Asset>> GetAllAsync()
         {
             return await _assetRepository.FindAllAsync();
+        }
+        public async Task<List<Asset>> GetQuantityAsync()
+        {
+            return await _assetRepository.FindQuantityAsync();
         }
 
         public async Task<Asset> GetByIdAsync(int id)

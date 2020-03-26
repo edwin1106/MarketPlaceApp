@@ -8,6 +8,7 @@ namespace MarketPlaceApp.Domain.Behaviors
     {
         Task CreateAsync(Asset asset);
         Task<List<Asset>> GetAllAsync();
+        Task<List<Asset>> GetQuantityAsync();
         Task<Asset> GetByIdAsync(int id);
         Task UpdateAsync(Asset asset);
     }

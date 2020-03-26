@@ -24,8 +24,7 @@ namespace MarketPlaceApp.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(201)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
         public async Task<ActionResult<Asset>> CreateAsync(CrearAsset crearAsset)
         {
             var asset = _mapper.Map<Asset>(crearAsset);
@@ -38,6 +37,12 @@ namespace MarketPlaceApp.Controllers
         public async Task<List<Asset>> GetAllAsync()
         {
             return await _assetBehavior.GetAllAsync();
+        }
+        [HttpGet("Quantity")]
+        [ProducesResponseType(200)]
+        public async Task<List<Asset>> GetQuantityAsync()
+        {
+            return await _assetBehavior.GetQuantityAsync();
         }
 
         [HttpGet("{id}")]

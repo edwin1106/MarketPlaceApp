@@ -42,6 +42,19 @@ namespace FamiliesApp.Domain.Infrastructure.Repositories
 
             return await query.ToListAsync();
         }
+        public async Task<List<T>> FindQuantityAsync()
+        {
+            return await FindQuantityAsync(null);
+        }
+        public async Task<List<T>> FindQuantityAsync(
+            params string[] includeProperties)
+        {
+            IQueryable<T> query = _dbSet.AsNoTracking();
+            query = query.AddIncludes(includeProperties).Take(6);
+
+            return await query.ToListAsync();
+        }
+
 
         public async Task<List<T>> FindAsync(
             Expression<Func<T, bool>> filter = null,
