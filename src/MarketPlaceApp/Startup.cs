@@ -37,13 +37,13 @@ namespace MarketPlaceApp
             // Enable CORS
             services.AddCors(options =>
             {
-                options.AddPolicy("EnableCORS", builder =>
-                {
-                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials().Build();
-                });
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
             });
             services.AddMvc(options =>
-                options.SuppressAsyncSuffixInActionNames = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                options.SuppressAsyncSuffixInActionNames = false).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 
             services.AddDbContext<ApplicationDbContext>(
@@ -96,6 +96,8 @@ namespace MarketPlaceApp
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
 
