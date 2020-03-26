@@ -42,7 +42,8 @@ namespace MarketPlaceApp
                     builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials().Build();
                 });
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options =>
+                options.SuppressAsyncSuffixInActionNames = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
 
             services.AddDbContext<ApplicationDbContext>(
